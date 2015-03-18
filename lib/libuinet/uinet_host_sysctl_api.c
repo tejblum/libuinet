@@ -23,6 +23,7 @@
  * SUCH DAMAGE.
  */
 
+#define _BSD_SOURCE
 #include <assert.h>
 #include <pthread.h>
 #include <stdio.h>
@@ -41,7 +42,7 @@
 #include <sys/types.h>
 #include <sys/mman.h>
 
-#include "uinet_internal.h"
+#include "uinet_api.h"
 #include "uinet_nv.h"
 #include "uinet_host_sysctl_api.h"
 #include "uinet_host_sysctl_api_priv.h"
