@@ -325,7 +325,7 @@ usage(const char *progname)
 
 	printf("Usage: %s [options]\n", progname);
 	printf("    -h                   show usage\n");
-	printf("    -I                   create new instance for subsequent interfaces");
+	printf("    -I                   create new instance for subsequent interfaces\n");
 	printf("    -i ifname            specify network interface\n");
 	printf("    -l inaddr            listen address\n");
 	printf("    -P                   put interface into Promiscuous INET mode\n");
