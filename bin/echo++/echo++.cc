@@ -229,7 +229,7 @@ EchoServer::EchoServer(ev::dynamic_loop &loop, struct server_config *cfg)
 		goto done;
 	}
 
-	error = uinet_socreate(UINET_PF_INET, &listener_, UINET_SOCK_STREAM, 0);
+	error = uinet_socreate(uinet_instance_default(), UINET_PF_INET, &listener_, UINET_SOCK_STREAM, 0);
 	if (0 != error) {
 		printf("Listen socket creation failed (%d)\n", error);
 		goto done;
@@ -458,11 +458,11 @@ int main (int argc, char **argv)
 	uinet_install_sighandlers();
 
 	for (i = 0; i < num_interfaces; i++) {
-		error = uinet_ifcreate(UINET_IFTYPE_NETMAP, interfaces[i].ifname, interfaces[i].ifname, interfaces[i].cdom, 0, NULL);
+		error = uinet_ifcreate(uinet_instance_default(), UINET_IFTYPE_NETMAP, interfaces[i].ifname, interfaces[i].ifname, interfaces[i].cdom, 0, NULL);
 		if (0 != error) {
 			printf("Failed to create interface %s (%d)\n", interfaces[i].ifname, error);
 		} else {
-			error = uinet_interface_up(interfaces[i].ifname, 1, 1);
+			error = uinet_interface_up(uinet_instance_default(), interfaces[i].ifname, 1, 1);
 			if (0 != error) {
 				printf("Failed to bring up interface %s (%d)\n", interfaces[i].ifname, error);
 			}
