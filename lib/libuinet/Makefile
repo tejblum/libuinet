@@ -79,6 +79,14 @@ endif
 
 CFLAGS+= -DUINET=1
 
+ifeq (${HOST_OS},Darwin)
+WITHOUT_NETMAP=yes
+endif
+
+ifeq (${WITHOUT_NETMAP},yes)
+CFLAGS+= -DWITHOUT_NETMAP=1
+endif
+
 VPATH+= $S/${MACHINE_CPUARCH}/${MACHINE_CPUARCH}
 VPATH+= $S/kern
 VPATH+= $S/crypto
@@ -152,7 +160,7 @@ UINET_SRCS+=			\
 	uinet_vm_meter.c	\
 	uinet_vm_object.c
 
-ifneq (${HOST_OS},Darwin)
+ifneq (${WITHOUT_NETMAP},yes)
 UINET_SRCS+= uinet_if_netmap.c
 endif
 
@@ -164,7 +172,7 @@ UINET_HOST_SRCS+=		\
 	uinet_kern_shutdown.c	\
 	uinet_host_sysctl_api.c
 
-ifneq (${HOST_OS},Darwin)
+ifneq (${WITHOUT_NETMAP},yes)
 UINET_HOST_SRCS+= uinet_if_netmap_host.c
 endif
 

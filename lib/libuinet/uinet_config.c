@@ -141,9 +141,11 @@ uinet_ifcreate(uinet_instance_t uinst, uinet_iftype_t type, const char *configst
 	new_uif->ifdata = NULL;
 
 	switch (new_uif->type) {
+#ifndef WITHOUT_NETMAP
 	case UINET_IFTYPE_NETMAP:
 		error = if_netmap_attach(new_uif);
 		break;
+#endif
 	case UINET_IFTYPE_PCAP:
 		error = if_pcap_attach(new_uif);
 		break;
@@ -189,9 +191,11 @@ uinet_ifdestroy_internal(struct uinet_if *uif)
 	int error;
 
 	switch (uif->type) {
+#ifndef WITHOUT_NETMAP
 	case UINET_IFTYPE_NETMAP:
 		error = if_netmap_detach(uif);
 		break;
+#endif
 	case UINET_IFTYPE_PCAP:
 		error = if_pcap_detach(uif);
 		break;
